@@ -16,6 +16,9 @@ def select_status():
     statuses = [ "Todo", "In Progress", "Done", "Cancelled"]
     rc, sel_status = Selector.select_from_list(statuses, small=True)
 
+    if rc != RC_OK:
+        eturn (rc, None)
+
     status_idx = statuses.index(sel_status)
 
     return (rc, status_mapping[status_idx])
@@ -78,11 +81,17 @@ def select_task(project_name=None, status_filter=[]):
 
     rc, task_list = get_task_list(project_name)
 
+    if rc != RC_OK:
+        return (rc, None)
+
     if len(status_filter) != 0:
         task_list = [task_obj for task_obj in task_list if task_obj['status'] in status_filter]
 
     task_texts = [task_obj["description"] for task_obj in task_list]
-    rc, sel_text = Selector.select_from_list(task_texts, small=True)
+    rc, sel_text = Selector.select_from_list(task_texts, small=True) 
+
+    if rc != RC_OK:
+        return (rc, None)
 
     sel_task = None
 

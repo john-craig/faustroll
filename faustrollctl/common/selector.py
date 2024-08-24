@@ -45,6 +45,9 @@ class Selector:
 
         rc, stdout = run_command(cmd, input="")
 
+        if rc != RC_OK:
+            return (rc, None)
+
         text = stdout.strip('\n')
 
         return (rc, text)

@@ -1,6 +1,7 @@
 import subprocess
 import logging
 import json
+import os
 
 from faustrollctl.common.constants import RC_OK, RC_BAD, PANMUPHLECTL_PATH
 
@@ -55,3 +56,37 @@ def get_application_pid(name=None, filter_fn=None):
         app_pid = found_apps[0]['pid']
     
     return [rc, app_pid]
+
+def get_selector_cache(cache_path):
+    if not os.path.exists(cache_path):
+        return []
+
+    with open(cache_path, "r") as cache_file:
+        selector_cache = cache_file.read().split('\n')
+        print(f"Selector cache: {selector_cache}")
+    
+    return selector_cache
+
+def merge_selector_cache(selector_list, cache_path):
+    selector_cache = get_selector_cache(cache_path)
+    
+    merged_list = selector_list.copy()
+
+    for item in selector_cache:
+        if item in merged_list:
+            merged_list.remove(item)
+    
+    merged_list = selector_cache.copy() + merged_list
+
+    return merged_list
+
+def update_selector_cache(item, cache_path):
+    selector_cache = get_selector_cache(cache_path)
+
+    if item in selector_cache:
+        selector_cache.remove(item)
+    
+    selector_cache.insert(0, item)
+
+    with open(cache_path, "w") as cache_file:
+        cache_file.write("\n".join(selector_cache))

@@ -8,6 +8,7 @@ import argparse
 from faustrollctl.functions.notes import quote_to_obsidian_from_selection, create_date_entry, select_note
 from faustrollctl.functions.projects import get_projects_list, select_project, get_active_project, create_project_task, modify_project_task, remove_project_task
 from faustrollctl.functions.tasks import select_task
+from faustrollctl.common.constants import STATE_DIR
 logger = logging.getLogger(__name__)
 
 FAUSTROLLCTL_ACTIONS = {
@@ -28,6 +29,11 @@ FAUSTROLLCTL_ACTIONS = {
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
+
+    logger.debug("Checking for state directory")
+    if not os.path.exists(STATE_DIR):
+        logger.info("State directory not found, creating it")
+        os.makedirs(STATE_DIR)
 
     parser = argparse.ArgumentParser(description="Panmuphle Control")
     parser.add_argument("action", choices=FAUSTROLLCTL_ACTIONS.keys())
