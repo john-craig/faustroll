@@ -5,7 +5,7 @@ from enum import Enum
 
 from faustrollctl.common.constants import RC_OK, RC_BAD, PANMUPHLECTL_PATH
 from faustrollctl.common.utils import run_command, get_application_pid
-from faustrollctl.applications.obsidian import quote_to_obsidian, obsidian_create_date_entry, obsidian_select_note
+from obsidian_utils.knowledge import quote_to_obsidian, obsidian_create_date_entry, obsidian_select_note
 from faustrollctl.applications.chromium import cite_from_chromium
 
 logger = logging.getLogger(__name__)

@@ -6,7 +6,8 @@ from faustrollctl.common.constants import RC_OK, RC_BAD, PANMUPHLECTL_PATH
 from faustrollctl.common.utils import run_command, get_application_pid
 from faustrollctl.common.selector import Selector
 
-from faustrollctl.applications.obsidian import obsidian_get_tasks, obsidian_get_active_project, obsidian_insert_task, obsidian_modify_task, obsidian_remove_task, TaskStatus
+from obsidian_utils.projects import obsidian_get_active_project
+from obsidian_utils.tasks import obsidian_get_tasks, obsidian_insert_task, obsidian_modify_task, obsidian_remove_task, TaskStatus
 
 logger = logging.getLogger(__name__)
 

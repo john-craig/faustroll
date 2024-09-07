@@ -9,7 +9,7 @@ from faustrollctl.common.selector import Selector
 
 from faustrollctl.functions.tasks import select_task, create_task, modify_task, remove_task
 
-from faustrollctl.applications.obsidian import obsidian_get_projects
+from obsidian_utils.projects import obsidian_get_projects
 from faustrollctl.applications.vscodium import vscodium_get_workspace
 
 project_cache_path = os.path.join(STATE_DIR, "projects.txt")

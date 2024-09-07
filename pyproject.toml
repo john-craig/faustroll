@@ -16,7 +16,7 @@ exclude = []
 name = "faustroll"
 version = "0.0.0"
 dependencies = [
-    "keyboard"
+    "obsidian-utils @ git+https://gitea.chiliahedron.wtf/john-craig/obsidian-utils@main"
 ]
 requires-python = ">=3.8"
 
