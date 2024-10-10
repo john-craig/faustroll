@@ -5,7 +5,8 @@ from enum import Enum
 
 from faustrollctl.common.constants import RC_OK, RC_BAD, PANMUPHLECTL_PATH
 from faustrollctl.common.utils import run_command, get_application_pid
-from obsidian_utils.knowledge import quote_to_obsidian, obsidian_create_date_entry, obsidian_select_note
+from obsidian_utils.knowledge import quote_to_obsidian, obsidian_select_note
+from obsidian_utils.projects import obsidian_get_active_project, obsidian_add_status_entry
 from faustrollctl.applications.chromium import cite_from_chromium
 
 logger = logging.getLogger(__name__)
@@ -121,7 +122,15 @@ def quote_to_obsidian_from_selection():
 # Note Management Functions
 ####################################
 def create_date_entry():
-    return obsidian_create_date_entry()
+    rc, active_project = obsidian_get_active_project()
+
+    if rc != RC_OK:
+        return rc
+
+    if active_project is None:
+        return RC_OK
+
+    return obsidian_add_status_entry(active_project)
 
 def select_note():
     return obsidian_select_note()
