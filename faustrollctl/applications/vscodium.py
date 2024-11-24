@@ -17,7 +17,10 @@ def vscodium_get_workspace():
     active_window = json.loads(stdout)
 
     vscodium_active = active_window["initialTitle"] == "VSCodium"
-    logger.info(f"VSCodium {"is" if vscodium_active else "is not"} the current window")
+    if vscodium_active:
+        logger.info("VSCodium is the active window")
+    else:
+        logger.info("VSCodium is not the active window")
 
     with open(os.path.join(VSCODIUM_CONFIG_PATH, "User/globalStorage/storage.json"), "r") as j_file:
         vscodium_state = json.loads(j_file.read())
